@@ -52,7 +52,7 @@ public class Account{
 	}
 	
 	public void withdraw(Double amount) {
-		
+		validateWithdraw(amount);
 		balance -= amount;
 	}
 	
