@@ -1,0 +1,61 @@
+[1mdiff --git a/interfaces_car_rental/src/application/Program.java b/interfaces_car_rental/src/application/Program.java[m
+[1mindex 440eedb..a86fa31 100644[m
+[1m--- a/interfaces_car_rental/src/application/Program.java[m
+[1m+++ b/interfaces_car_rental/src/application/Program.java[m
+[36m@@ -39,12 +39,9 @@[m [mpublic class Program {[m
+ 		[m
+ 		System.out.println("Fatura:");[m
+ 		[m
+[31m-		System.out.println("Pagamento básico " + cr.getInvoice().getBasicPayment());[m
+[31m-		System.out.println("Imposto: " + cr.getInvoice().getTax());[m
+[31m-		System.out.println("Pagamento total: " + cr.getInvoice().getTotalPayment());[m
+[31m-		[m
+[31m-[m
+[31m-				[m
+[32m+[m		[32mSystem.out.println("Pagamento básico " + String.format("%.2f", cr.getInvoice().getBasicPayment()));[m
+[32m+[m		[32mSystem.out.println("Imposto: " +  String.format("%.2f", cr.getInvoice().getTax()));[m
+[32m+[m		[32mSystem.out.println("Pagamento total: " +  String.format("%.2f", cr.getInvoice().getTotalPayment()));[m
+ 		[m
+ 		sc.close();[m
+ 	}[m
+[1mdiff --git a/interfaces_car_rental/src/model/entities/Invoice.java b/interfaces_car_rental/src/model/entities/Invoice.java[m
+[1mindex d50741e..0fbfb9f 100644[m
+[1m--- a/interfaces_car_rental/src/model/entities/Invoice.java[m
+[1m+++ b/interfaces_car_rental/src/model/entities/Invoice.java[m
+[36m@@ -33,5 +33,4 @@[m [mpublic class Invoice {[m
+ 		return getBasicPayment() + getTax();[m
+ 	}[m
+ 	[m
+[31m-	[m
+ }[m
+[1mdiff --git a/interfaces_car_rental/src/model/services/BrazilTaxService.java b/interfaces_car_rental/src/model/services/BrazilTaxService.java[m
+[1mindex 9cbfd35..d75ae48 100644[m
+[1m--- a/interfaces_car_rental/src/model/services/BrazilTaxService.java[m
+[1m+++ b/interfaces_car_rental/src/model/services/BrazilTaxService.java[m
+[36m@@ -1,8 +1,8 @@[m
+ package model.services;[m
+ [m
+[31m-public class BrazilTaxService {[m
+[32m+[m[32mpublic class BrazilTaxService implements TaxService{[m
+ 	[m
+[31m-	public Double tax(double amount) {[m
+[32m+[m	[32mpublic double tax(double amount) {[m
+ 		if (amount <= 100.0) {[m
+ 			return amount * 0.2;[m
+ 		}[m
+[1mdiff --git a/interfaces_car_rental/src/model/services/RentalService.java b/interfaces_car_rental/src/model/services/RentalService.java[m
+[1mindex bbf061d..184038f 100644[m
+[1m--- a/interfaces_car_rental/src/model/services/RentalService.java[m
+[1m+++ b/interfaces_car_rental/src/model/services/RentalService.java[m
+[36m@@ -10,9 +10,9 @@[m [mpublic class RentalService {[m
+ 	private Double pricePerHour;[m
+ 	private Double pricePerDay;[m
+ 	[m
+[31m-	private BrazilTaxService taxService;[m
+[32m+[m	[32mprivate TaxService taxService;[m
+ 	[m
+[31m-	public RentalService(Double pricePerHour, Double pricePerDay, BrazilTaxService taxService) {[m
+[32m+[m	[32mpublic RentalService(Double pricePerHour, Double pricePerDay, TaxService taxService) {[m
+ 		this.pricePerHour = pricePerHour;[m
+ 		this.pricePerDay = pricePerDay;[m
+ 		this.taxService = taxService;[m
